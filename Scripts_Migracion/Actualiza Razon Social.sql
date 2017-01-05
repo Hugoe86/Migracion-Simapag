@@ -1,0 +1,24 @@
+-- ************************************************
+--			SCRIPT PARA MODIFICAR NOMBRES
+-- ************************************************
+
+
+UPDATE Cat_Cor_Usuarios SET
+NOMBRE= APELLIDO_PATERNO + ' ' + APELLIDO_MATERNO + ' ' + NOMBRE ,APELLIDO_PATERNO='',APELLIDO_MATERNO='',ES_RAZON_SOCIAL='SI'
+WHERE USUARIO_ID in (SELECT USUARIO_ID from Cat_Cor_Usuarios WHERE len( ISNULL(RAZON_SOCIAL,''))>0 )
+
+
+SELECT RAZON_SOCIAL,NOMBRE,APELLIDO_PATERNO,APELLIDO_MATERNO FROM Cat_Cor_Usuarios WHERE len( ISNULL(RAZON_SOCIAL,''))>0
+
+UPDATE Cat_Cor_Usuarios SET
+NOMBRE= APELLIDO_PATERNO + ' ' + APELLIDO_MATERNO + ' ' + NOMBRE ,APELLIDO_PATERNO='',APELLIDO_MATERNO='',ES_RAZON_SOCIAL='SI'
+WHERE USUARIO_ID in
+(
+SELECT u.USUARIO_ID
+from Cat_Cor_Predios p JOIN Cat_Cor_Usuarios u on p.Usuario_ID=u.USUARIO_ID  WHERE Escuela_Publica='SI')
+
+
+SELECT u.RAZON_SOCIAL,u.NOMBRE,u.APELLIDO_PATERNO,u.APELLIDO_MATERNO,p.RPU
+from Cat_Cor_Predios p JOIN Cat_Cor_Usuarios u
+on p.Usuario_ID=u.USUARIO_ID
+ WHERE Escuela_Publica='SI'
