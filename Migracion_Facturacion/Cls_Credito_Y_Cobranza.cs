@@ -786,9 +786,11 @@ namespace Migracion_Facturacion
                                                 " 'PENDIENTE'" +
                                                 " ,'PARCIAL'" +
                                                 " )" +
+                                                " AND frd.estatus IN ('PENDIENTE', 'PARCIAL') " +
                                             " AND fr.RPU = p.RPU" +
                                             " AND  co.Concepto_ID = (SELECT CONCEPTO_AGUA from Cat_Cor_Parametros)" +
                                         " ), 0) " +
+
 
                                         " + " +
                                             " ISNULL((" +
@@ -800,6 +802,23 @@ namespace Migracion_Facturacion
                                                     "'PENDIENTE'" +
                                                     ",'PARCIAL'" +
                                                     ")" +
+                                                    " AND frd.estatus IN ('PENDIENTE', 'PARCIAL') " +
+                                                " AND fr.RPU = p.RPU" +
+                                                " AND  co.Concepto_ID = (SELECT Concepto_Agua_Comercial from Cat_Cor_Parametros)" +
+                                            "), 0)" +
+
+
+                                        " + " +
+                                            " ISNULL((" +
+                                            " SELECT SUM(frd.Importe_Saldo)" +
+                                            " FROM Ope_Cor_Facturacion_Recibos fr" +
+                                            " JOIN Ope_Cor_Facturacion_Recibos_Detalles frd ON fr.No_Factura_Recibo = frd.No_Factura_Recibo" +
+                                            " JOIN Cat_Cor_Conceptos_Cobros co ON frd.Concepto_ID = co.Concepto_ID" +
+                                            " WHERE fr.Estatus_Recibo IN (" +
+                                                    "'PENDIENTE'" +
+                                                    ",'PARCIAL'" +
+                                                    ")" +
+                                                    " AND frd.estatus IN ('PENDIENTE', 'PARCIAL') " +
                                                 " AND fr.RPU = p.RPU" +
                                                 " AND  co.Concepto_ID = (SELECT Concepto_Rezago_Agua_Id from Cat_Cor_Parametros)" +
                                             "), 0))" +
@@ -815,6 +834,7 @@ namespace Migracion_Facturacion
                                                " 'PENDIENTE'" +
                                                " ,'PARCIAL'" +
                                                " )" +
+                                           " AND frd.estatus IN ('PENDIENTE', 'PARCIAL') " +
                                            " AND fr.RPU = p.RPU" +
                                            " AND co.Concepto_ID = (SELECT CONCEPTO_DRENAJE from Cat_Cor_Parametros)" +
                                        " ), 0) " +
@@ -829,6 +849,7 @@ namespace Migracion_Facturacion
                                                     "'PENDIENTE'" +
                                                     ",'PARCIAL'" +
                                                     ")" +
+                                                    " AND frd.estatus IN ('PENDIENTE', 'PARCIAL') " +
                                                 " AND fr.RPU = p.RPU" +
                                                 " AND co.Concepto_ID = (SELECT Concepto_Rezago_Drenaje_Id from Cat_Cor_Parametros)" +
                                             "), 0))" +
@@ -845,6 +866,7 @@ namespace Migracion_Facturacion
                                              " 'PENDIENTE'" +
                                              " ,'PARCIAL'" +
                                              " )" +
+                                             " AND frd.estatus IN ('PENDIENTE', 'PARCIAL') " +
                                          " AND fr.RPU = p.RPU" +
                                          " AND co.Concepto_ID = (SELECT CONCEPTO_SANAMIENTO from Cat_Cor_Parametros)" +
                                      " ), 0) " +
@@ -858,7 +880,9 @@ namespace Migracion_Facturacion
                                                     "'PENDIENTE'" +
                                                     ",'PARCIAL'" +
                                                     ")" +
-                                                " AND fr.RPU = p.RPU" +
+                                            " AND frd.estatus IN ('PENDIENTE', 'PARCIAL') " +
+                                            " AND fr.RPU = p.RPU" +
+
                                                 " AND co.Concepto_ID = (SELECT Concepto_Rezago_Saneamiento_Id from Cat_Cor_Parametros)" +
                                             "), 0))" +
 
@@ -874,6 +898,7 @@ namespace Migracion_Facturacion
                                                " 'PENDIENTE'" +
                                                " ,'PARCIAL'" +
                                                " )" +
+                                               " AND frd.estatus IN ('PENDIENTE', 'PARCIAL') " +
                                            " AND fr.RPU = p.RPU" +
                                        " ), 0) AS [IVA]");
 
@@ -886,6 +911,7 @@ namespace Migracion_Facturacion
                                               " 'PENDIENTE'" +
                                               " ,'PARCIAL'" +
                                               " )" +
+                                              " AND frd.estatus IN ('PENDIENTE', 'PARCIAL') " +
                                           " AND fr.RPU = p.RPU" +
                                           " AND (co.Concepto_ID in (SELECT Concepto_Recargo_Agua_Id from Cat_Cor_Parametros)" +
                                                     " or co.Concepto_ID in (SELECT Concepto_Recargo_Drenaje_Id from Cat_Cor_Parametros)" +
@@ -903,6 +929,7 @@ namespace Migracion_Facturacion
                                            " 'PENDIENTE'" +
                                            " ,'PARCIAL'" +
                                            " )" +
+                                           " AND frd.estatus IN ('PENDIENTE', 'PARCIAL') " +
                                        " AND fr.RPU = p.RPU" +
                                        " AND co.Concepto_ID in (SELECT Concepto_Recargo_Agua_Id from Cat_Cor_Parametros) " +
                                    " ), 0) AS [Recargo_Agua]");
@@ -916,6 +943,7 @@ namespace Migracion_Facturacion
                                          " 'PENDIENTE'" +
                                          " ,'PARCIAL'" +
                                          " )" +
+                                         " AND frd.estatus IN ('PENDIENTE', 'PARCIAL') " +
                                      " AND fr.RPU = p.RPU" +
                                      " AND co.Concepto_ID in (SELECT Concepto_Recargo_Drenaje_Id from Cat_Cor_Parametros)" +
                                  " ), 0) AS [Recargo_Drenaje]");
@@ -929,6 +957,7 @@ namespace Migracion_Facturacion
                                         " 'PENDIENTE'" +
                                         " ,'PARCIAL'" +
                                         " )" +
+                                        " AND frd.estatus IN ('PENDIENTE', 'PARCIAL') " +
                                     " AND fr.RPU = p.RPU" +
                                     " AND co.Concepto_ID in (SELECT Concepto_Recargo_Saneamiento_Id from Cat_Cor_Parametros)" +
                                 " ), 0) AS [Recargo_Saneamiento]");
@@ -942,6 +971,7 @@ namespace Migracion_Facturacion
                                            " 'PENDIENTE'" +
                                            " ,'PARCIAL'" +
                                            " )" +
+                                           " AND frd.estatus IN ('PENDIENTE', 'PARCIAL') " +
                                        " AND fr.RPU = p.RPU" +
                                        " AND (" +
                                                 "co.Concepto_ID in (SELECT Concepto_Rezago_Agua_Id from Cat_Cor_Parametros)" +
@@ -960,10 +990,11 @@ namespace Migracion_Facturacion
                                                 " 'PENDIENTE'" +
                                                 " ,'PARCIAL'" +
                                                 ")" +
+                                                " AND frd.estatus IN ('PENDIENTE', 'PARCIAL') " +
                                             " AND fr.RPU = p.RPU" +
                                             " AND co.Nombre NOT LIKE '%recargo%'" +
                                             " AND co.Nombre NOT LIKE '%rezago%'" +
-                                            " AND co.Nombre NOT LIKE '%consumo agua' " +
+                                            " AND co.Nombre NOT LIKE '%agua' " +
                                             " AND co.Nombre NOT LIKE '%AGUA COMERCIAL' " +
                                             " AND co.Nombre NOT LIKE '%drenaje'" +
                                             " AND co.Nombre NOT LIKE '%saneamiento'" +

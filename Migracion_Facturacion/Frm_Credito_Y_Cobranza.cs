@@ -668,7 +668,7 @@ namespace Migracion_Facturacion
                         //  validacion para la informaicon que se ingresa al archivo
                         if (Str_Texto.ToString().Length > 0)
                         {
-                            if (Cont_Datos == 4)//  3
+                            if (Cont_Datos == 3)//  3
                             {
                                 Sw_Archivo_Final.WriteLine(Str_Texto);
                             }
